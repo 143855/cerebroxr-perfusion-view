@@ -38,9 +38,12 @@ const Navigation = () => {
             ))}
           </div>
 
-          {/* Desktop CTA */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost" className="text-foreground-secondary hover:text-foreground">
+            <Button 
+              variant="ghost" 
+              className="text-foreground-secondary hover:text-foreground"
+              onClick={() => window.location.href = '/login'}
+            >
               Sign In
             </Button>
             <Button className="bg-gradient-primary hover:glow-primary transition-all duration-300">
@@ -75,7 +78,11 @@ const Navigation = () => {
                 </a>
               ))}
               <div className="flex flex-col space-y-2 pt-4 border-t border-card-border">
-                <Button variant="ghost" className="justify-start">
+                <Button 
+                  variant="ghost" 
+                  className="justify-start"
+                  onClick={() => window.location.href = '/login'}
+                >
                   Sign In
                 </Button>
                 <Button className="bg-gradient-primary justify-start">
