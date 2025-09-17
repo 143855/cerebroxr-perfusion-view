@@ -36,6 +36,39 @@ const DownloadZipButton: React.FC = () => {
         zip.file(normalized, content);
       }
 
+      // Add essential project files that aren't caught by glob
+      const essentialFiles = [
+        'package.json',
+        'package-lock.json',
+        'bun.lockb',
+        'components.json',
+        'postcss.config.js',
+        '.gitignore',
+        'tsconfig.app.json',
+        'tsconfig.node.json',
+        'public/favicon.ico',
+        'public/placeholder.svg'
+      ];
+
+      const filePromises = essentialFiles.map(async (file) => {
+        try {
+          const response = await fetch(`/${file}`);
+          if (response.ok) {
+            if (file.endsWith('.ico') || file.endsWith('.svg')) {
+              const buffer = await response.arrayBuffer();
+              zip.file(file, buffer);
+            } else {
+              const text = await response.text();
+              zip.file(file, text);
+            }
+          }
+        } catch (e) {
+          console.warn(`Could not fetch ${file}:`, e);
+        }
+      });
+
+      await Promise.all(filePromises);
+
       // Collect asset files (images) via URLs and add as binary
       const assetModules: Record<string, any> = {
         ...import.meta.glob("/src/assets/**/*", { eager: true }),
