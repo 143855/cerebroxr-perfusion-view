@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Brain, ArrowRight, Eye, EyeOff, Mail, Lock, User, Building } from "lucide-react";
 import { Link } from "react-router-dom";
+import DownloadZipButton from "@/components/DownloadZipButton";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -23,7 +24,10 @@ const SignUp = () => {
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-hero"></div>
-      
+      <div className="absolute top-4 right-4 z-20">
+        <DownloadZipButton />
+      </div>
+
       {/* Animated Particles */}
       <div className="absolute inset-0">
         {[...Array(15)].map((_, i) => (
